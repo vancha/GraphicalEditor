@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-private xmlns="http://www.netbeans.org/ns/project-private/1">
+    <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
+    <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
+        <group>
+            <file>file:/home/vancha/Documents/designPatterns/editor%20stap%202%20(File%20IO)/Editor/src/editor/Editor.java</file>
+            <file>file:/home/vancha/Documents/designPatterns/editor%20stap%202%20(File%20IO)/Editor/src/editor/ICommand.java</file>
+            <file>file:/home/vancha/Documents/designPatterns/editor%20stap%202%20(File%20IO)/Editor/src/editor/Shape.java</file>
+            <file>file:/home/vancha/Documents/designPatterns/editor%20stap%202%20(File%20IO)/Editor/src/editor/paintClass.java</file>
+            <file>file:/home/vancha/Documents/designPatterns/editor%20stap%202%20(File%20IO)/Editor/src/editor/save.own</file>
+            <file>file:/home/vancha/Documents/designPatterns/editor%20stap%202%20(File%20IO)/Editor/src/editor/Rectangle.java</file>
+            <file>file:/home/vancha/Documents/designPatterns/editor%20stap%202%20(File%20IO)/Editor/src/editor/LoadAndSave.java</file>
+            <file>file:/home/vancha/Documents/designPatterns/editor%20stap%202%20(File%20IO)/Editor/src/editor/Ellipse.java</file>
+            <file>file:/home/vancha/Documents/designPatterns/editor%20stap%202%20(File%20IO)/Editor/src/editor/ShapeFactory.java</file>
+        </group>
+    </open-files>
+</project-private>
