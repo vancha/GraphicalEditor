@@ -5,16 +5,35 @@
  */
 package editor;
 
+import static editor.Editor.fc;
+import java.awt.Component;
+import java.awt.MenuItem;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.File;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
+import java.util.Arrays;
+import java.util.List;
+import javax.swing.JFileChooser;
+
 /**
  *
  * @author vancha
  */
-public class LoadAndSave 
+public class LoadAndSave implements ActionListener
 {
-    
-    public LoadAndSave()
+    MenuItem menuItem;
+    public LoadAndSave(Component component)
     {
-        
+        //this.menuItem = component;
     }
-    
+   
+
+    @Override
+    public void actionPerformed(ActionEvent ae) 
+    {
+    }
 }

@@ -5,13 +5,26 @@
  */
 package editor;
 
+import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.util.ArrayList;
+import javax.swing.BorderFactory;
+import javax.swing.ButtonGroup;
+import javax.swing.JFrame;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
+import javax.swing.JRadioButton;
+import javax.swing.border.Border;
 
 /**
  *
@@ -19,6 +32,7 @@ import javax.swing.JPanel;
  */
 public class paintClass extends JPanel implements MouseListener, MouseMotionListener
 {
+    paintClass panel;
     ShapeFactory factory = new ShapeFactory();
     ArrayList<Shape> list;
     public State state;
@@ -28,6 +42,109 @@ public class paintClass extends JPanel implements MouseListener, MouseMotionList
         RECTANGLE, ELLIPSE, SELECT, MOVE,RESIZE 
     }
     
+    public void createGui()
+    {
+        JFrame frame = new JFrame();
+        panel = new paintClass();
+        frame.setLayout(new BorderLayout());
+        JPanel optionPanel = new JPanel();
+        final ArrayList<JRadioButton> InterfaceButtons = new ArrayList<>();
+        final ButtonGroup group = new ButtonGroup();
+        
+        JRadioButton addRect = new JRadioButton("Rectangle");
+        JRadioButton addEllipse = new JRadioButton("ellipse");
+        JRadioButton moveShape = new JRadioButton("move");
+        JRadioButton resizeShape = new JRadioButton("resize");
+        JRadioButton selectShape = new JRadioButton("Select");
+        
+        group.add(addRect);
+        group.add(addEllipse);
+        group.add(moveShape);
+        group.add(resizeShape);
+        group.add(selectShape);
+        
+        Border b = BorderFactory.createEtchedBorder(Color.GRAY, Color.black);
+        panel.setBorder(b);
+        addRect.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent ae) 
+            {
+                panel.state = State.RECTANGLE;
+                DeSelectAllShapes(list);
+            }
+        });
+        
+        addEllipse.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) 
+            {
+                 panel.state = State.ELLIPSE;
+                 DeSelectAllShapes(panel.list);
+
+            }
+        });
+        
+        moveShape.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) 
+            {
+                panel.state = State.MOVE;
+                DeSelectAllShapes(panel.list);
+            }
+        });
+        resizeShape.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent ae) 
+            {
+                 panel.state = State.RESIZE;
+                 DeSelectAllShapes(panel.list);
+            }
+        });
+        selectShape.addActionListener(new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent ae) 
+            {
+                panel.state = State.SELECT;
+                DeSelectAllShapes(panel.list);
+            }
+        });
+        
+        
+        optionPanel.setSize(800,100);
+        frame.setSize(800,600);
+        
+        optionPanel.add(addRect);
+        optionPanel.add(addEllipse);
+        optionPanel.add(moveShape);
+        optionPanel.add(resizeShape);
+        optionPanel.add(selectShape);
+        
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.setVisible(true);
+        //frame.setContentPane(panel);
+        frame.add(optionPanel, BorderLayout.NORTH);
+        frame.add(panel, BorderLayout.CENTER);
+        JMenuBar menuBar = new JMenuBar();
+        JMenu jmi = new JMenu("Menu");
+        menuBar.add(jmi);
+        final JMenuItem menuItem = new JMenuItem("Save",
+                KeyEvent.VK_T);
+        ActionListener al;
+        al = new ActionListener()
+        {
+            @Override
+            public void actionPerformed(ActionEvent ae) 
+            {
+               //LoadAndSave las = new LoadAndSave(ae, menuItem);
+                //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+            }
+        };
+        menuItem.addActionListener(al);
+        jmi.add(menuItem);
+        frame.setJMenuBar(menuBar);
+    }
     public paintClass()
     {
         super();
@@ -44,8 +161,15 @@ public class paintClass extends JPanel implements MouseListener, MouseMotionList
         {
             s.Draw(g);
         }
+    }  
+    
+    public static void DeSelectAllShapes(ArrayList<Shape> shapelist)
+    {
+        for(Shape s: shapelist)
+        {
+            s.setSelected(false);
+        }
     }
-
     @Override
     public void mouseClicked(MouseEvent me) {
      
@@ -53,6 +177,7 @@ public class paintClass extends JPanel implements MouseListener, MouseMotionList
 
     @Override
     public void mousePressed(MouseEvent me) {
+        
         startPoint.x = me.getX();
         startPoint.y = me.getY();
         Shape shape = new Rectangle();
@@ -66,7 +191,7 @@ public class paintClass extends JPanel implements MouseListener, MouseMotionList
             break;
             case SELECT:
                  selection(me);
-             
+                 //return;
             break;
         }
         shape.setPosition(me.getX(), me.getY());
@@ -76,6 +201,7 @@ public class paintClass extends JPanel implements MouseListener, MouseMotionList
 
     public void selection(MouseEvent me)
     {
+        
         for(Shape s : list)
         {
             if(me.getX() > s.getX() && me.getX() < s.getX() + s.getWidth())
@@ -88,7 +214,8 @@ public class paintClass extends JPanel implements MouseListener, MouseMotionList
         }
     }
     @Override
-    public void mouseReleased(MouseEvent me) {
+    public void mouseReleased(MouseEvent me) 
+    {
         //System.out.println("release event");
     }
      @Override
